@@ -63,7 +63,7 @@ export default function  Validation({navigation}){
               selectedValue={OperadorState.IdValidacao}
               onValueChange={(itemValue, itemIndex) => chancheIdValidacao(itemValue)} >
 
-              { OperadorState.validacoes.map(item => <Picker.Item label={item.strNome} value={item.lngIdentificador} /> )}
+              { OperadorState.validacoes.map(item => <Picker.Item key={item.lngIdentificador} label={item.strNome} value={item.lngIdentificador} /> )}
 
             </Picker>
 

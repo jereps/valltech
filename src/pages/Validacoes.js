@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import { Text, StyleSheet, View, ScrollView } from 'react-native'
 import api from '../services/api'
 import { UserContext } from '../contexts/UserContext'
 import {showErros} from '../common'
@@ -10,14 +10,16 @@ export default function Validacao({navigation}) {
   const { state:OperadorState, dispatch: operadorDespatch } = useContext(UserContext);
   const  [idLogin, setidLogin]  = useState(OperadorState);
   const [val, setVal] = useState([]);
+  const [time, setTime] = useState(null)
 
 
   
   useEffect(() => {
-
+    // sectionTime();
     validacoes();
+    return () => clearTimeout(time);
     
-  })
+  },[])
 
 
 
@@ -33,11 +35,19 @@ export default function Validacao({navigation}) {
             showErros("Falha No servidor, Tente Novamente!")
           }
           
+          sectionTime();
 
       }catch(e) {
         showErros(e)
       }
       
+    }
+
+    sectionTime = () => {
+      // setIsLoading(false);
+      setTime(setTimeout( () => {
+        navigation.goBack();
+      }, 10000))
     }
 
     return (
@@ -47,7 +57,11 @@ export default function Validacao({navigation}) {
 
         <Text style={styles.titulo}>Informações da Validação</Text>
 
+        <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
+
         {val.map(item => <Card data={item} />)}
+
+        </ScrollView>
 
       </View>
     );
@@ -68,5 +82,9 @@ const styles = StyleSheet.create({
     },
     list: {
       paddingHorizontal: 20,
+    },
+    scroll: {
+      flex: 1,
+      // width: '90%',
     },
   });

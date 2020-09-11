@@ -4,7 +4,7 @@ import { View,Text, StyleSheet } from 'react-native'
 export default ({data}) => {
 
     return (
-        <View style={styles.card}>
+        <View style={styles.card} key={data.lngIDValidacao}>
             
             <View style={styles.linerow}><Text style={styles.header}>Validação: </Text><Text style={styles.descricao}>{data.lngIDValidacao}</Text></View>
 
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
       marginTop: -20,
     },
     card: { 
-      width: '80%', 
+      width: '100%', 
       justifyContent: "center",
       alignContent: "center",
       padding: 10,
